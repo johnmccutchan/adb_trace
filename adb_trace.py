@@ -68,6 +68,14 @@ def pull_result(dst_file):
                               dst_file)
   run("adb", "pull", cur_file, dst_file)
 
+def count_devices():
+  count = 0
+  lines = run_and_readlines("adb", "devices")
+  for l in lines:
+    if re.match('^[0-9a-f]{16}', l, re.IGNORECASE):
+      count = count + 1
+  return count
+
 def main():
   parser = optparse.OptionParser(usage="adb_trace")
   parser.add_option('--refresh-rate', '-r', dest='refresh_rate', action='store', default=0, help='The refresh rate for the screen, in hertz. If not given, the script will try to autoguess it.')
@@ -75,6 +83,10 @@ def main():
   parser.add_option('-v', '--view', dest='run_tev', action='store_true', default=False, help='Run trace-event-viewer upon completion.')
   parser.add_option('-b', '--browser', dest='browser', action='store', default='stable', help='Which browser you want to run against: stable / beta / dev / build')
   options, args = parser.parse_args()
+
+  if count_devices() != 1:
+    print "You can only have one Android device attached"
+    sys.exit()
 
   if CHROME_PACKAGE_MAPPING.get(options.browser) == None:
     print "Did not specify a valid browser name: stable, beta, dev, or build.";
