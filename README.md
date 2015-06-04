@@ -14,7 +14,7 @@ Requires Android Chrome version 25+
 ## Grabbing a capture from a stable Chrome build ##
 
 ```sh
-$ python ./adb_profile_chrome.py --time 5 --view
+$ python ./profile_chrome.py --time 5 --view
 Capturing 5-second chrome trace. Press Enter to stop early...done
 Downloading...done
 Trace written to chrome-profile-results-2013-10-25-181905.html
@@ -23,7 +23,7 @@ Trace written to chrome-profile-results-2013-10-25-181905.html
 Using beta?
 
 ```sh
-$ python ./adb_profile_chrome.py --time 5 --browser beta --view
+$ python ./profile_chrome.py --time 5 --browser beta --view
 ```
 
 Using dev channel or developer build? `--browser dev` and `--browser build`
@@ -36,7 +36,7 @@ An [Android Systrace](http://developer.android.com/tools/help/systrace.html)
 provides more detailed low-level statistics from the operating system. This is
 how to capture one:
 
-$ python ./adb_profile_chrome.py --time 5 --systrace gfx,input,view,sched,freq
+$ python ./profile_chrome.py --time 5 --systrace gfx,input,view,sched,freq
 
 By default we also record a normal Chrome trace in addition to the Systrace.
 This can be controlled with the --categories flag.
